@@ -10,13 +10,13 @@ frontend:
     preBuild:
       commands:
         - npm ci
-        - aws amplify update-domain-association --app-id d265i3dhp7tldg --domain-name jeremygu.site --sub-domain-settings "[{\"prefix\": \"www\",\"branchName\": \"maintenance\"}, {\"prefix\": \"\",\"branchName\": \"maintenance\"}]"
+        - aws amplify update-domain-association --app-id d265i3dhp7tldg --domain-name jeremygu.site --sub-domain-settings '[{"prefix": "www","branchName": "maintenance"}, {"prefix": "","branchName": "maintenance"}]'
     build:
       commands:
         - npm run build
     postBuild:
       commands:
-        - aws amplify update-domain-association --app-id d265i3dhp7tldg --domain-name jeremygu.site --sub-domain-settings "[{\"prefix\": \"www\",\"branchName\": \"master\"}, {\"prefix\": \"\",\"branchName\": \"master\"}]"
+        - aws amplify update-domain-association --app-id d265i3dhp7tldg --domain-name jeremygu.site --sub-domain-settings '[{"prefix": "www","branchName": "master"}, {"prefix": "","branchName": "master"}]'
   artifacts:
     baseDirectory: build
     files:
