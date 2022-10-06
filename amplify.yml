@@ -10,7 +10,7 @@ frontend:
     preBuild:
       commands:
         - npm ci
-        - aws amplify update-domain-association --app-id d265i3dhp7tldg --domain-name jeremygu.site --sub-domain-settings '[{"prefix": "www","branchName": "maintenance"}, {"prefix": "","branchName": "maintenance"}]'
+        - aws amplify list-apps
     build:
       commands:
         - npm run build
