@@ -3,24 +3,32 @@ backend:
   phases:
     build:
       commands:
-        - '# Execute Amplify CLI with the helper script'
+        - "# Execute Amplify CLI with the helper script"
         - amplifyPush --simple
 frontend:
   phases:
     preBuild:
       commands:
         - npm ci
-        - "aws amplify update-domain-association --app-id d265i3dhp7tldg --domain-name jeremygu.site  --sub-domain-settings '[{\\\"prefix\\\":\\\"www\\\",\\\"branchName\\\":\\\"maintenance\\\"}, {\\\"prefix\\\":\\\"\\\",\\\"branchName\\\":\\\"maintenance\\\"}]'"
+        - >-
+          aws amplify update-domain-association --app-id d265i3dhp7tldg
+          --domain-name jeremygu.site --sub-domain-settings
+          '[{"prefix":"www","branchName":"maintenance"},
+          {"prefix":"","branchName":"maintenance"}]'
     build:
       commands:
         - npm run build
     postBuild:
       commands:
-        - "aws amplify update-domain-association --app-id d265i3dhp7tldg --domain-name jeremygu.site  --sub-domain-settings '[{\\\"prefix\\\":\\\"www\\\",\\\"branchName\\\":\\\"master\\\"}, {\\\"prefix\\\":\\\"\\\",\\\"branchName\\\":\\\"master\\\"}]'"
+        - >-
+          aws amplify update-domain-association --app-id d265i3dhp7tldg
+          --domain-name jeremygu.site --sub-domain-settings
+          '[{"prefix":"www","branchName":"master"},
+          {"prefix":"","branchName":"master"}]'
   artifacts:
     baseDirectory: build
     files:
-      - '**/*'
+      - "**/*"
   cache:
     paths:
       - node_modules/**/*
